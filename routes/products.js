@@ -27,9 +27,6 @@ router.post('/', verify, async (req, res) => {
     const { error } = productValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const isCorrectUserId = req.user._id === req.body.userId
-    if (!isCorrectUserId) return res.status(400).send('Invalid userId');
-
     const product = new Product({
         userId: req.body.userId,
         title: req.body.title,
