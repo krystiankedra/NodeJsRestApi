@@ -10,13 +10,15 @@ dotenv.config();
 const authRouter = require('./routes/auth');
 const productsRouter = require('./routes/products');
 const usersRouter = require('./routes/users');
+const transitionsRouter = require('./routes/transations');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/user', authRouter);
-app.use('/products', productsRouter);
-app.use('/users', usersRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/transitions', transitionsRouter);
 
 mongoose.connect(
     process.env.DB_CONNECTION,
