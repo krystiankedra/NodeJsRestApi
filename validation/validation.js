@@ -31,8 +31,6 @@ const loginValidation = (data) => {
 
 const productValidation = (data) => {
     const schema = {
-        userId: Joi.string()
-            .required(),
         title: Joi.string()
             .required(),
         description: Joi.string()

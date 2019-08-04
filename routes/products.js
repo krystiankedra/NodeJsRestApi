@@ -28,7 +28,7 @@ router.post('/', verify, async (req, res) => {
     if (error) return res.status(400).send(error.details[0].message);
 
     const product = new Product({
-        userId: req.body.userId,
+        userId: req.user._id,
         title: req.body.title,
         description: req.body.description
     });
@@ -41,4 +41,18 @@ router.post('/', verify, async (req, res) => {
     }
 });
 
+router.delete('/:id', verify, async (req, res) => {
+    try {
+        const product = await Product.findById({ _id: req.params.id });
+        if (!product) return res.status(400).send(`Product doesn't exist`);
+
+        const isUserOwnerProduct = product.userId === req.user._id;
+        if (!isUserOwnerProduct) return res.status(400).send(`You can't delete someone's product`);
+
+        await Product.deleteOne({ _id: req.params.id });
+        res.status(200).send()
+    } catch (err) {
+        res.status(400).send(err);
+    }
+})
 module.exports = router;
