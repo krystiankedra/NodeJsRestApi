@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 
         res.status(200).header('authorize', token).send(token);
     } catch (err) {
-        res.status(400).send(err)
+        res.status(400).send(err);
     }
 });
 
